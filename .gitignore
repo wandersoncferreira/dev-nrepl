@@ -7,3 +7,4 @@ tmp/
 .cpcache
 .lsp
 .nrepl-port
+*.jar

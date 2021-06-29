@@ -1,7 +1,7 @@
 (ns dev-nrepl.core
   (:require [cider.nrepl :refer [cider-middleware]]
             [nrepl.server :refer [start-server stop-server]]
-            [refactor-nrepl.middleware :refer [wrap-refactor]])
+            [refactor-nrepl.middleware])
   (:gen-class))
 
 (defn- resolve-or-fail
@@ -11,7 +11,7 @@
 
 (defn- setup-refactor-middleware
   []
-  (->> (conj cider-middleware 'wrap-refactor)
+  (->> (conj cider-middleware 'refactor-nrepl.middleware/wrap-refactor)
        (map resolve-or-fail)
        (apply nrepl.server/default-handler)))
 
@@ -29,9 +29,11 @@
   (if @nrepl-server*
     (println "Could not complete action: a server is already running")
     (if cider?
-      (reset! nrepl-server* (start-server :port NREPL_PORT
-                                          :handler (setup-refactor-middleware)))
-      (reset! nrepl-server* (start-server :port NREPL_PORT)))))
+      (do (reset! nrepl-server* (start-server :port NREPL_PORT
+                                              :handler (setup-refactor-middleware)))
+          (println "NREPL (cider:enabled) started on PORT: " NREPL_PORT))
+      (do (reset! nrepl-server* (start-server :port NREPL_PORT))
+          (println "NREPL (cider:disabled) started on PORT: " NREPL_PORT)))))
 
 
 (defn stop-nrepl!
