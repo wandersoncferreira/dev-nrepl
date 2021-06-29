@@ -1,7 +1,7 @@
 (ns dev-nrepl.core
   (:require [cider.nrepl :refer [cider-middleware]]
             [nrepl.server :refer [start-server stop-server]]
-            #_:clj-kondo/ignore [refactor-nrepl.middleware :refer [wrap-refactor]])
+            [refactor-nrepl.middleware :refer [wrap-refactor]])
   (:gen-class))
 
 (defn- resolve-or-fail
@@ -18,8 +18,9 @@
 (defonce nrepl-server* (atom nil))
 
 (def ^:private NREPL_PORT (or (System/getenv "NREPL_PORT") 17042))
-(def ^:private ENABLE_CIDER? (or (System/getenv "ENABLE_CIDER") true))
+(def ^:private ENABLE_CIDER? (or (System/getenv "ENABLE_CIDER") "true"))
 
+(def ^:private cider? (= "true" ENABLE_CIDER?))
 
 ;;; Public API
 
@@ -27,7 +28,7 @@
   []
   (if @nrepl-server*
     (println "Could not complete action: a server is already running")
-    (if ENABLE_CIDER?
+    (if cider?
       (reset! nrepl-server* (start-server :port NREPL_PORT
                                           :handler (setup-refactor-middleware)))
       (reset! nrepl-server* (start-server :port NREPL_PORT)))))
