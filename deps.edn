@@ -1,0 +1,5 @@
+{:paths ["src"]
+ :deps
+ {cider/cider-nrepl {:mvn/version "0.27.0-SNAPSHOT"}
+  refactor-nrepl/refactor-nrepl {:mvn/version "2.5.1"}
+  nrepl/nrepl {:mvn/version "0.8.3"}}}
