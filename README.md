@@ -19,3 +19,8 @@ Then:
 ``` sh
 clj -M:nrepl
 ```
+
+
+## configuration
+
+We can change environment variables to control `NREPL_PORT` and `ENABLE_CIDER`.
