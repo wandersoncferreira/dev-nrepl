@@ -1,7 +1,8 @@
 (ns dev-nrepl.core
   (:require [cider.nrepl :refer [cider-middleware]]
             [nrepl.server :refer [start-server stop-server]]
-            #_:clj-kondo/ignore [refactor-nrepl.middleware :refer [wrap-refactor]]))
+            #_:clj-kondo/ignore [refactor-nrepl.middleware :refer [wrap-refactor]])
+  (:gen-class))
 
 (defn- resolve-or-fail
   [sym]
