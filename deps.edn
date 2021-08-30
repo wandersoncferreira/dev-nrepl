@@ -4,6 +4,7 @@
   refactor-nrepl/refactor-nrepl {:mvn/version "2.5.1"}
   nrepl/nrepl {:mvn/version "0.8.3"}
   clj-commons/pomegranate {:mvn/version "1.2.0"} ;; enable hot reload of dependencies
+  mx.cider/enrich-classpath {:mvn/version "1.4.1"}
   }
 
  :jvm-opts ["-Dclojure.tools.logging.factory=clojure.tools.logging.impl/slf4j-factory"]
